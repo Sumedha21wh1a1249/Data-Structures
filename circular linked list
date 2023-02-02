@@ -1,0 +1,168 @@
+// circular linked list
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *head=NULL;
+struct node *temp=NULL;
+void display();
+struct node *getnode();
+void insert_start();
+void insert_end();
+void insert_position();
+void delete_position();
+void delete_start();
+void delete_end();
+int main()
+{
+    int ch;
+    while(1)
+    {
+        printf("\n 1.insert_start \n 2.insert_end \n 3.display \n 4.delete_start \n 5.delete_end \n 6.insert_position \n 7.delete_position \n 8.exit");
+        printf("\n enter option");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:printf("\n inserting element at starting");
+                   insert_start();
+                   break;
+            case 2:printf("\n inserting element at end");
+                   insert_end();
+                   break;
+            case 3:printf("\n output elements");
+                   display();
+                   break;
+            case 4:printf("\n deleting element at start");
+                   delete_start();
+                   break;
+            case 5:printf("\n deleting element at end");
+                   delete_end();
+                   break;
+           case 6:printf("\n inserting element at required position");
+                   insert_position();
+                   break;
+            case 7:printf("\n deleting element at required position");
+                   delete_position();
+                   break;
+            case 8:exit(-1);
+                   break;
+               
+                 
+
+        }
+    }
+   
+}
+void insert_position()
+{
+    int k,i;
+    printf("\n enter position");
+    scanf("%d",&k);
+    struct node *new=getnode();
+    struct node *curr=head;
+    for(i=1;i<k-1;i++)
+    {
+        curr=curr->next;
+    }
+         new->next=curr->next;
+         curr->next=new;
+}
+void delete_position()
+{
+    struct node *curr,*temp=head;
+    int i,k;
+    printf("\n enter position to delete");
+    scanf("%d",&k);
+    for(i=1;i<k-1;i++)
+    {
+        temp=temp->next;
+    }
+    curr=temp->next;
+    temp->next=temp->next->next;
+    free(curr);
+}
+struct node *getnode()
+{
+    struct node *new = (struct node *)malloc(sizeof(struct node));
+    scanf("%d",&new->data);
+    new->next=head;
+    return new;
+}
+void insert_start()
+{
+    struct node *new=getnode();
+    if(head==NULL)
+    head=temp=new;
+    else
+    {
+        new->next=head;
+        temp->next=new;
+        head=new;
+    }
+   
+}
+
+void insert_end()
+{
+    struct node *new=getnode();
+    if(head==NULL)
+    head=temp=new;
+    else if(head->next==head)
+    head=temp=new;
+    else
+    {
+        temp->next=new;
+        new->next=head;
+        temp=new;
+    }
+}
+void display()
+{
+    struct node *curr=head;
+    if(curr==NULL)
+    printf("\n list is empty");
+    else
+    while(curr->next!=head)
+    {
+        printf("\n %d",curr->data);
+        curr=curr->next;
+    }
+    printf("\n %d",curr->data);
+}
+void delete_start()
+{
+    struct node *curr=head;
+    if(head==NULL)
+    {
+    printf("\n list is empty");
+    }
+    else if(head->next==head)
+    head=temp=NULL;
+    else
+    {
+        temp->next=head->next;
+        head=head->next;
+        free(curr);
+    }
+}
+void delete_end()
+{
+    struct node *temp1=head,*ptr=temp;
+    if(head==NULL)
+    printf("\n list is empty");
+    else if(head->next==head)
+    head=temp=NULL;
+    else
+    {
+    while(temp1->next!=temp)
+    {
+        temp1=temp1->next;
+    }
+    temp1->next=head;
+    temp=temp1;
+    }
+    free(ptr);
+}
