@@ -1,0 +1,106 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct node{
+        int key,value;
+        struct node*lchild;
+        struct node*rchild;
+        struct node*root;
+}node;
+node*root = NULL;
+node*getnode(){
+        node*new = (node*)malloc(sizeof(node));
+        printf("\nEnter key ,value:");
+        scanf("%d %d",&new->key,&new->value);
+        new ->lchild = NULL;
+        new ->rchild = NULL;
+        return new;
+}
+void insert_root(){
+      node*new = getnode();
+      if(root == NULL){
+             root = new;
+      }
+      else{
+             printf("Root alredy exist's");
+      }
+}
+void insert_left(node*root){
+        node*new = getnode();
+        if(root -> lchild == NULL)
+                root -> lchild = new;
+        else
+                printf("Root node doesnt exist");
+}
+void insert_right(node*root){
+        node*new = getnode();
+       if(root -> rchild == NULL)
+               root ->rchild = new;
+               else
+               printf("Root node doesnt exists");
+}
+void inorder(node*root){
+        if(root != NULL){
+                inorder(root -> lchild);
+                printf("%3d",root -> key);
+                inorder(root -> rchild);
+        }
+}
+void preorder(node*root){
+        if(root != NULL){
+                printf("%3d",root -> key);
+                preorder(root ->lchild);
+                preorder(root ->rchild);
+        }
+}
+void postorder(node*root){
+        if(root != NULL){
+                preorder(root ->lchild);
+                preorder(root ->rchild);
+                printf("%3d",root -> key);
+        }
+}
+
+
+int main(){
+        int ch,i;
+        while(1){
+                printf("\n1.root\n2.left child\n3.right child\n4.inorder\n5.preorder\n6.postorder\n7.exit");
+                printf("\nEnter option:");
+                scanf("%d",&ch);
+                switch(ch){
+                        case 1: printf("\nInsert root node");
+                                insert_root();
+                                break;
+                        case 2: printf("\nINsert left child");
+                                printf("\nenter parent of child to insert");
+                                scanf("%d",&i);
+                                insert_left(root);
+                                break;
+                        case 3: printf("\nINsert right child");
+                                printf("\nenter parent of child to insert");
+                                scanf("%d",&i);
+                                insert_right(root);
+                                break;
+                        case 4: printf("\nInorder traversal");
+                                inorder(root);
+                                break;
+                        case 5: printf("\n preorder traversal");
+                                preorder(root);
+                                break;
+                        case 6: printf("\n postorder traversal");
+                                postorder(root);
+                                break;
+                        case 7: exit(-1);
+                                break;
+                }
+        }
+}
+
+
+
+
+
+
+                                                    
+                                                                                                                            1,17          Top
+
